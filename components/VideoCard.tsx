@@ -6,7 +6,8 @@ interface Video {
   thumbnail: string;
   channel: string;
   views: number;
-  timestamp: string; // e.g., "1 hour ago"
+  timestamp: string;
+  description: string;
 }
 
 interface VideoCardProps {

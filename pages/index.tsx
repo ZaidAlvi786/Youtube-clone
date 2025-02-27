@@ -6,25 +6,24 @@ import { Video, dummyVideos, dummyRecommendations } from "../utils/videoData";
 import RecommendationList from "@/components/RecommendationLIst";
 
 export default function Home() {
-  const [videos, setVideos] = useState<Video[]>(dummyVideos.slice(0, 10)); // Show 10 videos initially
-  const [isLoading, setIsLoading] = useState(false);
+  const [videos, setVideos] = useState<Video[]>(dummyVideos.slice(0, 12)); // Show 12 videos initially
+  const [isLoading, setIsLoading] = useState(false); // Loader state
   const [searchQuery, setSearchQuery] = useState("");
-  const [recommended, setRecommended] = useState<Video[]>(dummyRecommendations);
   const [allFilteredVideos, setAllFilteredVideos] = useState<Video[]>(dummyVideos);
   const observer = useRef<IntersectionObserver | null>(null);
   const lastVideoRef = useRef<HTMLDivElement>(null);
 
   const loadMoreVideos = useCallback(() => {
-    if (isLoading || typeof window === "undefined") return;
+    if (isLoading || typeof window === "undefined" || videos.length >= allFilteredVideos.length) return;
 
     setIsLoading(true);
     setTimeout(() => {
       const currentLength = videos.length;
-      const newVideos = allFilteredVideos.slice(currentLength, currentLength + 10); // Load 10 more filtered videos
-      setVideos((prev) => [...prev, ...newVideos]);
-      setIsLoading(false);
-    }, 1000); // 1-second delay to simulate loading
-  }, [videos.length, isLoading, allFilteredVideos]);
+      const newVideos = allFilteredVideos.slice(currentLength, currentLength + 12); // Load 12 more filtered videos
+      setVideos((prev) => [...prev, ...newVideos]); // Add 12 more videos to VideoCard
+      setIsLoading(false); // Hide loader after adding videos
+    }, 500); // 0.5-second delay to simulate loading
+  }, [videos.length, isLoading, allFilteredVideos.length]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -56,10 +55,10 @@ export default function Home() {
         video.description.toLowerCase().includes(query.toLowerCase())
       );
       setAllFilteredVideos(filteredVideos);
-      setVideos(filteredVideos.slice(0, 10)); // Reset to first 10 filtered videos
+      setVideos(filteredVideos.slice(0, 12)); // Reset to first 12 filtered videos
     } else {
       setAllFilteredVideos(dummyVideos);
-      setVideos(dummyVideos.slice(0, 10)); // Reset to first 10 dummy videos
+      setVideos(dummyVideos.slice(0, 12)); // Reset to first 12 dummy videos
     }
   };
 
@@ -75,9 +74,9 @@ export default function Home() {
               <VideoCard video={video} />
             </div>
           ))}
-          {isLoading && typeof window !== "undefined" && <Loader />}
+          {isLoading && videos.length < allFilteredVideos.length && <Loader />}
         </div>
-        <RecommendationList videos={recommended} />
+        <RecommendationList videos={dummyRecommendations} />
       </div>
     </Layout>
   );
