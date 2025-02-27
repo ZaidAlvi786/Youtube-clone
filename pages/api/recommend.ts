@@ -5,6 +5,9 @@ interface Video {
   id: string;
   title: string;
   thumbnail: string;
+  channel: string;
+  views: number;
+  timestamp: string;
 }
 
 export default function handler(req: NextApiRequest, res: NextApiResponse<Video[]>) {

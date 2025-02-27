@@ -4,6 +4,9 @@ interface Video {
   id: string;
   title: string;
   thumbnail: string;
+  channel: string;
+  views: number;
+  timestamp: string; // e.g., "1 hour ago"
 }
 
 interface VideoCardProps {
@@ -12,11 +15,17 @@ interface VideoCardProps {
 
 export default function VideoCard({ video }: VideoCardProps) {
   return (
-    <Link href={`/video/${video.id}`}>
-      <div className="p-2 cursor-pointer">
-        <img src={video.thumbnail} alt={video.title} className="w-full rounded" />
-        <h3 className="mt-2 text-white">{video.title}</h3>
+    <div className="mb-6">
+      <Link href={`/video/${video.id}`}>
+        <img src={video.thumbnail} alt={video.title} className="w-full rounded-lg" />
+      </Link>
+      <div className="mt-2">
+        <Link href={`/video/${video.id}`} className="text-white hover:text-red-500 text-lg font-semibold">
+          {video.title}
+        </Link>
+        <p className="text-gray-400 text-sm">{video.channel}</p>
+        <p className="text-gray-400 text-sm">{video.views} views • {video.timestamp}</p>
       </div>
-    </Link>
+    </div>
   );
 }
