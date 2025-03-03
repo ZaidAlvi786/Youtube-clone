@@ -1,31 +1,18 @@
-import Link from "next/link";
-
-interface Video {
-  id: string;
-  title: string;
-  thumbnail: string;
-  channel: string;
-  views: number;
-  timestamp: string; // e.g., "1 hour ago"
-}
+import { Video } from "../types/video";
+import { useRouter } from "next/router";
 
 interface VideoCardProps {
   video: Video;
 }
 
 export default function VideoCard({ video }: VideoCardProps) {
+  const router = useRouter();
+
   return (
-    <div className="mb-6">
-      <Link href={`/video/${video.id}`}>
-        <img src={video.thumbnail} alt={video.title} className="w-full rounded-lg" />
-      </Link>
-      <div className="mt-2">
-        <Link href={`/video/${video.id}`} className="text-white hover:text-red-500 text-lg font-semibold">
-          {video.title}
-        </Link>
-        <p className="text-gray-400 text-sm">{video.channel}</p>
-        <p className="text-gray-400 text-sm">{video.views} views • {video.timestamp}</p>
-      </div>
+    <div className="cursor-pointer p-2 border rounded-lg" onClick={() => router.push(`/video/${video.id}`)}>
+      <img src={video.thumbnail} alt={video.title} className="w-full rounded" />
+      <p className="font-semibold mt-2">{video.title}</p>
+      <p className="text-gray-500 text-sm">{video.channelName}</p>
     </div>
   );
 }
