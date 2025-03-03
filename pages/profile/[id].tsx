@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ProfileHeader from "../../components/ProfileHeader";
-import VideoList from "../../components/VideoList";
-import { User } from "../../types/user";
 import { Video } from "../../types/video";
+import { User } from "@/types/user";
+import VideoList from "@/components/VideoList";
+import ProfileHeader from "@/components/ProfileHeader";
 
 export default function ProfilePage() {
   const router = useRouter();
