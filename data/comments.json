@@ -1,0 +1,19 @@
+[
+    {
+      "id": "c1",
+      "userId": "201",
+      "userName": "John Doe",
+      "videoId": "1",
+      "text": "Great explanation! Learned a lot.",
+      "createdAt": "2024-03-02"
+    },
+    {
+      "id": "c2",
+      "userId": "202",
+      "userName": "Jane Smith",
+      "videoId": "1",
+      "text": "Looking forward to more content!",
+      "createdAt": "2024-03-03"
+    }
+  ]
+  

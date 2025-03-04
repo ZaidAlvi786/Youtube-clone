@@ -29,7 +29,7 @@ export default function ProfilePage() {
     <div>
       <ProfileHeader user={user} />
       <h2 className="text-xl font-semibold mt-4">Uploaded Videos</h2>
-      <VideoList videos={videos} />
+      <VideoList  />
     </div>
   );
 }
