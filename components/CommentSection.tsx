@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
-
-interface Comment {
-  id: string;
-  user: string;
-  text: string;
-}
+import socket from "../utils/socket";
+import { Comment } from "../types/comment";
 
 interface CommentSectionProps {
   videoId: string;
@@ -18,14 +14,25 @@ export default function CommentSection({ videoId }: CommentSectionProps) {
     fetch(`/api/comments/${videoId}`)
       .then((res) => res.json())
       .then((data) => setComments(data));
+
+    socket.on("newComment", (comment: Comment) => {
+      setComments((prev) => [...prev, comment]);
+    });
+
+    return () => {
+      socket.off("newComment");
+    };
   }, [videoId]);
 
   const handleCommentSubmit = async () => {
+    const commentData = { videoId, text: newComment };
     await fetch(`/api/comments/${videoId}`, {
       method: "POST",
-      body: JSON.stringify({ text: newComment }),
+      body: JSON.stringify(commentData),
       headers: { "Content-Type": "application/json" },
     });
+
+    socket.emit("sendComment", commentData);
     setNewComment("");
   };
 
@@ -44,7 +51,7 @@ export default function CommentSection({ videoId }: CommentSectionProps) {
       <div className="mt-4">
         {comments.map((comment) => (
           <div key={comment.id} className="border-b py-2">
-            <p className="font-semibold">{comment.user}</p>
+            <p className="font-semibold">{comment.userName}</p>
             <p>{comment.text}</p>
           </div>
         ))}
