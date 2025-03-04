@@ -1,11 +1,25 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { AnimatePresence } from "framer-motion";
+import { SessionProvider } from "next-auth/react";
+import { Provider } from "react-redux";
+import { MantineProvider } from "@mantine/core";
+import store from "../redux/store";
+import "../styles/globals.css";
+import type { Session } from "next-auth";
 
-export default function App({ Component, pageProps, router }: AppProps) {
+interface CustomAppProps extends AppProps {
+  pageProps: {
+    session?: Session;
+  };
+}
+
+export default function App({ Component, pageProps }: CustomAppProps) {
   return (
-    <AnimatePresence mode="wait">
-      <Component {...pageProps} key={router.route} />
-    </AnimatePresence>
+    <SessionProvider session={pageProps.session}>
+      <Provider store={store}>
+        <MantineProvider>
+          <Component {...pageProps} />
+        </MantineProvider>
+      </Provider>
+    </SessionProvider>
   );
 }

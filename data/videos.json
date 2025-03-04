@@ -1,0 +1,29 @@
+[
+    {
+      "id": "1",
+      "title": "Introduction to Next.js",
+      "description": "A beginner's guide to Next.js and React.",
+      "thumbnail": "/thumbnails/nextjs.png",
+      "url": "https://www.example.com/video1.mp4",
+      "channelId": "101",
+      "channelName": "Tech Guru",
+      "views": 105000,
+      "likes": 1200,
+      "dislikes": 20,
+      "createdAt": "2024-03-01"
+    },
+    {
+      "id": "2",
+      "title": "Advanced TypeScript Tips",
+      "description": "Best practices for TypeScript developers.",
+      "thumbnail": "/thumbnails/typescript.png",
+      "url": "https://www.example.com/video2.mp4",
+      "channelId": "102",
+      "channelName": "Code Masters",
+      "views": 67000,
+      "likes": 900,
+      "dislikes": 10,
+      "createdAt": "2024-02-25"
+    }
+  ]
+  

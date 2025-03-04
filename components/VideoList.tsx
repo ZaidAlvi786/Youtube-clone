@@ -1,11 +1,16 @@
-import { Video } from "../types/video";
+import { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
+import { Video } from "../types/video";
 
-interface VideoListProps {
-  videos: Video[];
-}
+export default function VideoList() {
+  const [videos, setVideos] = useState<Video[]>([]);
 
-export default function VideoList({ videos }: VideoListProps) {
+  useEffect(() => {
+    fetch("/api/videos")
+      .then((res) => res.json())
+      .then((data) => setVideos(data));
+  }, []);
+
   return (
     <div className="grid grid-cols-3 gap-4">
       {videos.map((video) => (

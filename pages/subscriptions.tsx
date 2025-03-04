@@ -14,7 +14,7 @@ export default function SubscriptionsPage() {
   return (
     <div>
       <h1 className="text-2xl font-bold">Your Subscriptions</h1>
-      <VideoList videos={videos} />
+      <VideoList  />
     </div>
   );
 }

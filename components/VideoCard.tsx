@@ -9,10 +9,15 @@ export default function VideoCard({ video }: VideoCardProps) {
   const router = useRouter();
 
   return (
-    <div className="cursor-pointer p-2 border rounded-lg" onClick={() => router.push(`/video/${video.id}`)}>
-      <img src={video.thumbnail} alt={video.title} className="w-full rounded" />
-      <p className="font-semibold mt-2">{video.title}</p>
-      <p className="text-gray-500 text-sm">{video.channelName}</p>
+    <div
+      className="cursor-pointer bg-white rounded-lg shadow-md overflow-hidden"
+      onClick={() => router.push(`/video/${video.id}`)}
+    >
+      <img src={video.thumbnail} alt={video.title} className="w-full h-40 object-cover" />
+      <div className="p-3">
+        <h3 className="font-bold text-sm">{video.title}</h3>
+        <p className="text-gray-500 text-xs">{video.channelName}</p>
+      </div>
     </div>
   );
 }

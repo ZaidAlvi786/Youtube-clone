@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { Button, Container, Text } from "@mantine/core";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { Container, Text } from "@mantine/core";
 import VideoCard from "../components/VideoCard";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 import { Video } from "../types/video";
 
 export default function Home() {
-  const { data: session } = useSession();
   const [videos, setVideos] = useState<Video[]>([]);
 
   useEffect(() => {
@@ -15,26 +15,21 @@ export default function Home() {
   }, []);
 
   return (
-    <Container>
-      <Text align="center" size="xl" weight={700} mt="xl">
-        Welcome to YouTube Clone
-      </Text>
-      {session ? (
-        <Button color="red" onClick={() => signOut()} mt="xl">
-          Sign Out
-        </Button>
-      ) : (
-        <Button color="blue" onClick={() => signIn("google")} mt="xl">
-          Sign In with Google
-        </Button>
-      )}
-
-      <Text size="lg" mt="xl">Trending Videos:</Text>
-      <div className="grid grid-cols-3 gap-4">
-        {videos.map((video) => (
-          <VideoCard key={video.id} video={video} />
-        ))}
+    <div className="flex">
+      <Sidebar />
+      <div className="flex-1 ml-64">
+        <Header />
+        <Container>
+          <Text size="lg" mt="xl" className="font-bold text-gray-800">
+            Trending Videos
+          </Text>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+            {videos.map((video) => (
+              <VideoCard key={video.id} video={video} />
+            ))}
+          </div>
+        </Container>
       </div>
-    </Container>
+    </div>
   );
 }
