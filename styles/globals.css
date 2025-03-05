@@ -40,3 +40,20 @@ body {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 }
+/* Apply dark mode styles */
+:root {
+  --background-light: #ffffff;
+  --background-dark: #181818;
+  --text-light: #000000;
+  --text-dark: #ffffff;
+}
+
+html[data-theme="light"] {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+html[data-theme="dark"] {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
