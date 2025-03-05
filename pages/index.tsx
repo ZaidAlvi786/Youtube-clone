@@ -9,9 +9,10 @@ export default function Home() {
   const [videos, setVideos] = useState<Video[]>([]);
 
   useEffect(() => {
-    fetch("/api/videos")
+    fetch("http://localhost:5000/api/videos") // ✅ Correct backend URL
       .then((res) => res.json())
-      .then((data) => setVideos(data));
+      .then((data) => setVideos(data))
+      .catch((err) => console.error("Error fetching videos:", err));
   }, []);
 
   return (

@@ -2,13 +2,20 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { Input } from "@mantine/core";
 import { useRouter } from "next/router";
 import { FaYoutube, FaSearch } from "react-icons/fa";
+import DarkModeToggle from "./DarkModeToggle";
+import { motion } from "framer-motion";
 
 export default function Header() {
   const { data: session } = useSession();
   const router = useRouter();
 
   return (
-    <header className="flex items-center justify-between p-4 bg-gray-900 text-white">
+    <motion.header
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="flex items-center justify-between p-4 bg-gray-900 text-white"
+    >
       {/* Logo */}
       <div className="flex items-center space-x-2 cursor-pointer" onClick={() => router.push("/")}>
         <FaYoutube className="text-red-500 text-3xl" />
@@ -24,8 +31,9 @@ export default function Header() {
         <FaSearch className="text-gray-400 ml-2 cursor-pointer" />
       </div>
 
-      {/* Profile */}
-      <div>
+      {/* Profile & Dark Mode Toggle */}
+      <div className="flex items-center space-x-4">
+        <DarkModeToggle />
         {session ? (
           <div className="flex items-center space-x-3">
             <img
@@ -43,6 +51,6 @@ export default function Header() {
           </button>
         )}
       </div>
-    </header>
+    </motion.header>
   );
 }
